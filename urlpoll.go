@@ -40,6 +40,7 @@ When it receives a State update from updates, it records the new status in the u
 Notice that this goroutine owns the urlStatus data structure, ensuring that it can only be accessed sequentially.
 This prevents memory corruption issues that might arise from parallel reads and/or writes to a shared map.
 */
+// the return is channel only be used for send data(cannot read from, but can write to and close())
 func StateMonitor(updateInterval time.Duration) chan<- State {
 	updates := make(chan State)
 	urlStatus := make(map[string]string)
@@ -49,7 +50,7 @@ func StateMonitor(updateInterval time.Duration) chan<- State {
 			select {
 			case <-ticker.C:
 				logState(urlStatus)
-			case s := <-updates:
+			case s := <-updates: //
 				urlStatus[s.url] = s.status
 			}
 		}
