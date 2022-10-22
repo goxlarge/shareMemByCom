@@ -89,7 +89,8 @@ func (r *Resource) Poll() string {
 Sleep calls time.Sleep to pause before sending the Resource to done.
  The pause will either be of a fixed length (pollInterval) plus an additional delay proportional to the number of sequential errors (r.errCount).
 
-This is an example of a typical Go idiom: a function intended to run inside a goroutine takes a channel,
+This is an example of a typical Go idiom:
+a function intended to run inside a goroutine takes a channel,
 upon which it sends its return value (or other indication of completed state).
 
 */
